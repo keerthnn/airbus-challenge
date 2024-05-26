@@ -48,7 +48,7 @@ const FuelData = ({ aircraft, distance }) => {
                     <p><strong>ICAO:</strong> {data.icao}</p>
                     <p><strong>IATA:</strong> {data.iata}</p>
                     <p><strong>Model:</strong> {data.model}</p>
-                    <p><strong>GCD:</strong> {data.gcd ? 'Yes' : 'No'}</p>
+                    {/* <p><strong>GCD:</strong> {data.gcd ? 'Yes' : 'No'}</p> */}
                 </div>
             ))}
         </div>

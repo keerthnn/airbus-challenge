@@ -164,3 +164,58 @@
 .dropdown li:hover {
   background-color: #8495c6;
 }
+
+/* Media Query for smaller screens */
+@media screen and (max-width: 768px) {
+
+  /* .search-form */
+  .search-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* .input-group */
+  .input-group {
+    width: 200px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+    .input-icon {
+      left: 10px;
+      /* Adjusted position for smaller screens */
+    }
+
+  /* .switch-button */
+  .switch-button {
+    margin: 10px 0;
+    width: 10%;
+    margin-left: 50%;
+  }
+
+  /* .search-button */
+  .search-button {
+    margin-left: 30%;
+    width: 50%;
+  }
+
+  /* .content */
+  .content {
+    padding: 0 20px;
+  }
+  .dropdown{
+    width: 200px;
+    margin-left: 10%;
+  }
+
+
+  /* .input-group input */
+  .input-group input {
+    padding: 15px 50px;
+  }
+
+  /* .flights-list */
+  .flights-list {
+    gap: 10px;
+  }
+}
