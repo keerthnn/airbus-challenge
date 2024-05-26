@@ -6,7 +6,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ['http://localhost:3000', 'https://airbus-challenge-fronted.vercel.app/'];
+const allowedOrigins = ['http://localhost:3000', 'https://airbus-challenge-fronted.vercel.app'];
+
 
 app.use(cors({
     origin: function (origin, callback) {

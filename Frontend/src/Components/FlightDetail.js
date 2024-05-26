@@ -25,12 +25,16 @@ const FlightDetail = () => {
   const [routeWeight, setRouteWeight] = useState(null);
 
   const requestRef = useRef();
-  const API_BASE_URL = '/api'; // Use the proxy path
+  const API_BASE_URL = 'https://api.flightplandatabase.com';
+
+
+
+
 
   useEffect(() => {
     const fetchFlightDetails = async () => {
       try {
-        const response = await axios.get(`${API_BASE_URL}/flightplan/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/plan/${id}`);
         const flightData = response.data;
 
         const weatherPromises = flightData.route.nodes.map(node =>
@@ -44,14 +48,19 @@ const FlightDetail = () => {
         setWeatherData(weatherData);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
-        setError('Error fetching flight details: ' + error.message);
+        if (error.response && error.response.status === 404) {
+          setError('Flight details not found. Please check the ID and try again.');
+        } else {
+          setError('Error fetching flight details: ' + error.message);
+        }
         console.error('Error fetching flight details:', error);
         setLoading(false); // Set loading to false on error
       }
     };
 
     fetchFlightDetails();
-  }, [id, API_BASE_URL]);
+  }, [id]);
+
 
 
   const interpolatePosition = (start, end, factor) => {
