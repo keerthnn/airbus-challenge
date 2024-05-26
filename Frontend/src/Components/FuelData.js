@@ -7,10 +7,12 @@ const FuelData = ({ aircraft, distance }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const API_BASE_URLs = 'https://api.flightplandatabase.com';
+
     useEffect(() => {
         const fetchFuelData = async () => {
             try {
-                const response = await axios.get(`/api/fuel-data?aircraft=${aircraft}&distance=${distance}`);
+                const response = await axios.get(`${API_BASE_URLs}/q/?aircraft=${aircraft}&distance=${distance}`);
                 setFuelData(response.data);
                 setLoading(false);
             } catch (error) {
