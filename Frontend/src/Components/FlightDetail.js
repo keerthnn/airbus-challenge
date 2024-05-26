@@ -8,7 +8,7 @@ import airplane from "../assets/airplane.png";
 import airport from "../assets/airport.png";
 import aeroplane from "../assets/airplane1.png";
 import './FlightDetail.css';
-import FuelData from './FuelData'; 
+import FuelData from './FuelData';
 
 // Define kelvinToCelsius function
 const kelvinToCelsius = (kelvin) => {
@@ -22,16 +22,15 @@ const FlightDetail = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true); // Add loading state
   const [currentPosition, setCurrentPosition] = useState(null);
-  const [currentStep, setCurrentStep] = useState(0);
   const [routeWeight, setRouteWeight] = useState(null);
 
   const requestRef = useRef();
-
+  const API_BASE_URL = '/api'; // Use the proxy path
 
   useEffect(() => {
     const fetchFlightDetails = async () => {
       try {
-        const response = await axios.get(`/api/flightplan/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/flightplan/${id}`);
         const flightData = response.data;
 
         const weatherPromises = flightData.route.nodes.map(node =>
@@ -52,11 +51,8 @@ const FlightDetail = () => {
     };
 
     fetchFlightDetails();
-  }, [id]);
+  }, [id, API_BASE_URL]);
 
-
-  
-  
 
   const interpolatePosition = (start, end, factor) => {
     return {
@@ -155,14 +151,12 @@ const FlightDetail = () => {
     return normalizedWeight;
   };
 
-
   useEffect(() => {
     if (flight && weatherData.length === flight.route.nodes.length) {
       const weight = calculateRouteWeight(flight, weatherData);
       setRouteWeight(weight);
     }
   }, [flight, weatherData, setRouteWeight]);
-  
 
   if (error) {
     return <div>{error}</div>;
@@ -217,22 +211,16 @@ const FlightDetail = () => {
           <p><strong>Departure Airport:</strong> {flight.fromName}</p>
           <p><strong>Arrival Airport:</strong> {flight.toName}</p>
           <p><strong>Distance:</strong> {flight.distance.toFixed(2)} km</p>
-          {/* <p><strong>From ICAO:</strong> {flight.fromICAO}</p>
-            <p><strong>To ICAO:</strong> {flight.toICAO}</p> */}
           {routeWeight && (
             <div>
               <h2>Route Weight: {routeWeight}</h2>
             </div>
           )}
-            
         </div>
 
         <div className="card flight-detail-card">
           <FuelData aircraft="60006b" distance={flight.distance} />
         </div>
-
-        
-
       </div>
 
       <div className="map-container">
