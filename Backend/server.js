@@ -8,18 +8,20 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = ['http://localhost:3000', 'https://airbus-challenge-fronted.vercel.app'];
 
-
 app.use(cors({
     origin: function (origin, callback) {
-        // allow requests with no origin
+        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
+
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
+            callback(new Error(msg), false);
         }
-        return callback(null, true);
     }
 }));
+
 
 app.use(express.json());
 
