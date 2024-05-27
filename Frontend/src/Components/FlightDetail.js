@@ -63,6 +63,7 @@ const FlightDetail = () => {
 
 
 
+
   const interpolatePosition = (start, end, factor) => {
     return {
       lat: start[0] + (end[0] - start[0]) * factor,
@@ -157,7 +158,10 @@ const FlightDetail = () => {
     // Normalize total weight to fall within range of 10
     const normalizedWeight = Math.min(10, totalWeatherWeight / flight.route.nodes.length);
 
-    return normalizedWeight;
+    // Round the normalized weight to 3 decimal places
+    const roundedWeight = parseFloat(normalizedWeight.toFixed(3));
+
+    return roundedWeight;
   };
 
   useEffect(() => {
@@ -210,10 +214,9 @@ const FlightDetail = () => {
   return (
     <div className="flight-detail-container">
       <div className='flight-info'>
-        <div className="card flight-detail-card">
+        <div className="cards flight-detail-card">
           <h1>Flight Planner</h1>
         </div>
-
         <div className="card flight-detail-card">
           <h1>Flight Details</h1>
           <p><strong>Path ID:</strong> {flight.id}</p>
@@ -223,17 +226,16 @@ const FlightDetail = () => {
           {routeWeight && (
             <div>
               <h2>Route Weight: {routeWeight}</h2>
+              <p>The route weight is a normalized value that reflects the cumulative impact of weather conditions, visibility, and wind speed along a flight path.</p>
             </div>
           )}
         </div>
 
-        <div className="card flight-detail-card">
           <FuelData aircraft="60006b" distance={flight.distance} />
-        </div>
       </div>
 
       <div className="map-container">
-        <MapContainer center={pathCoordinates[0]} zoom={5} style={{ height: '100%', width: '100%' }}>
+        <MapContainer center={pathCoordinates[0]} zoom={7} style={{ height: '100%', width: '100%' }}>
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

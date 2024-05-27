@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
@@ -9,12 +10,17 @@ const PORT = process.env.PORT || 5000;
 const allowedOrigins = ['http://localhost:3000', 'https://airbus-challenge-fronted.vercel.app'];
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://airbus-challenge-fronted.vercel.app'], // List allowed origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+  origin: ['http://localhost:3000', 'https://airbus-challenge-fronted.vercel.app'], // List allowed origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
 }));
 
 
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected...'))
+    .catch(err => console.log(err));
+    
 app.use(express.json());
 
 const API_KEY = process.env.API_KEY;

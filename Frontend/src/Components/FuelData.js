@@ -40,7 +40,7 @@ const FuelData = ({ aircraft, distance }) => {
 
     return (
         <div className="fuel-data">
-            <h3>Fuel Data</h3>
+            <h1>Fuel Data</h1>
             {fuelData.map((data, index) => (
                 <div key={index}>
                     <p><strong>Aircraft:</strong> {data.icao24}</p>

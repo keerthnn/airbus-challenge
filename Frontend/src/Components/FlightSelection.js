@@ -137,7 +137,7 @@ const FlightSearch = () => {
             <FontAwesomeIcon icon={faPlaneDeparture} className="input-icon" />
             <input
               type="text"
-              placeholder="Enter From Airport"
+              placeholder="Departure Airport(Ex:IndiraGandhi intl)"
               value={fromAirport}
               onChange={handleFromAirportChange}
             />
@@ -158,7 +158,7 @@ const FlightSearch = () => {
             <FontAwesomeIcon icon={faPlaneArrival} className="input-icon" />
             <input
               type="text"
-              placeholder="Enter To Airport"
+              placeholder="Arrival Airport (Ex: Kempegowda Intl)"
               value={toAirport}
               onChange={handleToAirportChange}
             />
