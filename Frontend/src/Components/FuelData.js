@@ -7,7 +7,7 @@ const FuelData = ({ aircraft, distance }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const API_BASE_URLs = 'https://api.flightplandatabase.com';
+    const API_BASE_URLs = 'https://despouy.ca/flight-fuel-api';
 
     useEffect(() => {
         const fetchFuelData = async () => {
