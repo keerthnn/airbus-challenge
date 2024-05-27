@@ -22,14 +22,21 @@ const FlightSearch = () => {
 
   useEffect(() => {
     const fetchAirports = async () => {
-      const response = await fetch('/iata-icao.csv');  // Fetch from public directory
-      const reader = response.body.getReader();
-      const result = await reader.read();
-      const decoder = new TextDecoder('utf-8');
-      const csv = decoder.decode(result.value);
-      const results = Papa.parse(csv, { header: true });
-      console.log('Parsed airport data:', results.data);  // Debugging: Check the parsed data
-      setAirports(results.data);
+      try {
+        const response = await fetch('/iata-icao.csv');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch CSV: ${response.statusText}`);
+        }
+
+        const blob = await response.blob();
+        const text = await blob.text();
+        const results = Papa.parse(text, { header: true });
+
+        console.log('Parsed airport data:', results.data); // Debugging: Check the parsed data
+        setAirports(results.data);
+      } catch (error) {
+        console.error('Error fetching airport data:', error);
+      }
     };
 
     fetchAirports();
