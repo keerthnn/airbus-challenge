@@ -7,12 +7,12 @@ const FuelData = ({ aircraft, distance }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const API_BASE_URLs = 'https://despouy.ca/flight-fuel-api';
+    const API_BASE_URLs = 'http://localhost:5000/api/fuel-data';
 
     useEffect(() => {
         const fetchFuelData = async () => {
             try {
-                const response = await axios.get(`${API_BASE_URLs}/q/?aircraft=${aircraft}&distance=${distance}`);
+                const response = await axios.get(`${API_BASE_URLs}?aircraft=${aircraft}&distance=${distance}`);
                 setFuelData(response.data);
                 setLoading(false);
             } catch (error) {
